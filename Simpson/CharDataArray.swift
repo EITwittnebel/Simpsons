@@ -32,15 +32,47 @@ class CharDataArray {
     
     dataForCharacter.charDescription = description
     dataForCharacter.charName = String(description[description.startIndex..<description.index(description.startIndex, offsetBy: nameLength)])
-    //dataForCharacter.charImage =
     
-    data.append(dataForCharacter)
+    if (charJSON["Icon"]["URL"].stringValue == "") {
+      dataForCharacter.charImage = UIImage(named: "test.jpg")
+      data.append(dataForCharacter)
+    } else {
+      let picURL = URL(string: charJSON["Icon"]["URL"].stringValue)
+    
+      if (picURL == nil) {
+        dataForCharacter.charImage = UIImage(named: "test.jpg")
+      } else {
+        let session = URLSession(configuration: .default)
+        let downloadPicTask = session.dataTask(with: picURL!) { (data, response, error) in
+          // The download has finished.
+          if let e = error {
+            print("Error downloading picture: \(e)")
+          } else {
+            // No errors found.
+            // It would be weird if we didn't have a response, so check for that too.
+            if let res = response as? HTTPURLResponse {
+              print("Downloaded picture with response code \(res.statusCode)")
+              if let imageData = data {
+                let image = UIImage(data: imageData)
+                dataForCharacter.charImage = image
+              } else {
+                print("Couldn't get image: Image is nil")
+              }
+            } else {
+              print("Couldn't get response code for some reason")
+            }
+          }
+        }
+        downloadPicTask.resume()
+        data.append(dataForCharacter)
+      }
+    }
   }
   
   //Right now we only get the first 20 chars, hopefully that is enough
-  func parseData(_ apiCallResults: JSON) {
+  func parseData(_ apiCallResults: JSON, numChars: Int) {
     let characters = apiCallResults["RelatedTopics"]
-    for index in 0..<20 {
+    for index in 0..<numChars {
       parseSingleCharacter(characters[index])
     }
   }

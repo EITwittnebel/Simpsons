@@ -23,6 +23,7 @@ class MasterViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let NUMCHARS: Int = 20
     let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")
     
     
@@ -31,8 +32,7 @@ class MasterViewController: UITableViewController {
       let json: JSON = JSON(data)
       //print(json["RelatedTopics"][0])
       //Parse the JSON into charData so that we dont need multiple API calls
-      self.charDataArray.parseData(json)
-      print(self.charDataArray.data.count)
+      self.charDataArray.parseData(json, numChars: NUMCHARS)
       
       DispatchQueue.main.async {
         self.tableView.reloadData()
@@ -43,7 +43,11 @@ class MasterViewController: UITableViewController {
     // Do any additional setup after loading the view.
     navigationItem.leftBarButtonItem = editButtonItem
 
-    let addButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(insertNewObject(_:)))
+    let addButton = UIBarButtonItem()
+    addButton.action = #selector(insertNewObject(_:))
+    addButton.title = "Faces"
+    addButton.target = self
+    //let addButton = UIBarButtonItem(barButtonSystemItem: ,target: self, action: #selector(insertNewObject(_:)))
     navigationItem.rightBarButtonItem = addButton
     if let split = splitViewController {
         let controllers = split.viewControllers
@@ -62,8 +66,9 @@ class MasterViewController: UITableViewController {
     //let indexPath = IndexPath(row: charDataArray.data.count, section: 0)
     //tableView.insertRows(at: [indexPath], with: .automatic)
     
-    let vc = storyboard?.instantiateViewController(identifier: "collection")
-    navigationController?.pushViewController(vc!, animated: false)
+    let vc = storyboard?.instantiateViewController(identifier: "collection") as! CollectionViewController
+    vc.charDataArray = charDataArray
+    navigationController?.pushViewController(vc, animated: true)
   }
 
   // MARK: - Segues
@@ -71,11 +76,12 @@ class MasterViewController: UITableViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
         if let indexPath = tableView.indexPathForSelectedRow {
-            let object = objects[indexPath.row] as! NSDate
+          let charData = charDataArray.data[indexPath.row]
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-            controller.detailItem = object
+            controller.detailItem = charData
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            
             detailViewController = controller
         }
     }

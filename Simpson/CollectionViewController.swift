@@ -11,13 +11,20 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController {
   
+  var charDataArray: CharDataArray?
   
+  /*
+  required init?(coder: NSCoder) {
+    charDataArray = CharDataArray()
+    super.init(coder: coder)
+  }
+  */
   override func viewDidLoad() {
     super.viewDidLoad()
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 12;
+    return charDataArray?.data.count ?? 0;
   }
   
   override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -27,20 +34,27 @@ class CollectionViewController: UICollectionViewController {
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath)
     
-    let myImage = UIImage(named: "test.jpg")
+    let myImage = charDataArray?.data[indexPath.row].charImage ?? UIImage(named:"test.jpg")
     let myImageView = UIImageView(image: myImage)
-    //let testImage = UIImage(named: "test.jpg")
-    //let mytestView = UIImageView(image: testImage)
-    //print(cell.center.x)
-    //print(cell.center.y)
-    //if (indexPath.row == 3) {
-    //  myImageView.frame = CGRect(x: cell.center.x-25.0, y: cell.center.y-25.0, width: 50, height: 50)
-    //  myImageView.image = myImage
-    //}
+    
+    //let myImageView = UIImageView(image: myImage)
+    
     cell.addSubview(myImageView)
-    cell.backgroundColor = .cyan
+    cell.backgroundColor = .clear
     
     return cell;
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "showDetail" {
+        if let indexPath = collectionView.indexPathsForSelectedItems {
+          let charData = charDataArray!.data[indexPath[0].row]
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            controller.detailItem = charData
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        }
+    }
   }
   
 }

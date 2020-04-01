@@ -34,13 +34,13 @@ class CharDataArray {
     dataForCharacter.charName = String(description[description.startIndex..<description.index(description.startIndex, offsetBy: nameLength)])
     
     if (charJSON["Icon"]["URL"].stringValue == "") {
-      dataForCharacter.charImage = UIImage(named: "test.jpg")
+      dataForCharacter.charImage = UIImage(named: "placeholder.png")
       data.append(dataForCharacter)
     } else {
       let picURL = URL(string: charJSON["Icon"]["URL"].stringValue)
     
       if (picURL == nil) {
-        dataForCharacter.charImage = UIImage(named: "test.jpg")
+        dataForCharacter.charImage = UIImage(named: "placeholder.png")
       } else {
         let session = URLSession(configuration: .default)
         let downloadPicTask = session.dataTask(with: picURL!) { (data, response, error) in
@@ -54,7 +54,11 @@ class CharDataArray {
               print("Downloaded picture with response code \(res.statusCode)")
               if let imageData = data {
                 let image = UIImage(data: imageData)
-                dataForCharacter.charImage = image
+                if (image!.size.width == 1.0) {
+                  dataForCharacter.charImage = UIImage(named: "placeholder.png")
+                } else {
+                  dataForCharacter.charImage = image
+                }
               } else {
                 print("Couldn't get image: Image is nil")
               }

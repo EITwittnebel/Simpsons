@@ -23,7 +23,7 @@ class MasterViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let NUMCHARS: Int = 20
+    let NUMCHARS: Int = 80
     let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")
     
     
@@ -41,7 +41,7 @@ class MasterViewController: UITableViewController {
     task.resume()
     
     // Do any additional setup after loading the view.
-    navigationItem.leftBarButtonItem = editButtonItem
+    //navigationItem.leftBarButtonItem = editButtonItem
 
     let addButton = UIBarButtonItem()
     addButton.action = #selector(insertNewObject(_:))
@@ -67,7 +67,15 @@ class MasterViewController: UITableViewController {
     //tableView.insertRows(at: [indexPath], with: .automatic)
     
     let vc = storyboard?.instantiateViewController(identifier: "collection") as! CollectionViewController
-    vc.charDataArray = charDataArray
+    
+    var charsWithFaces: CharDataArray = CharDataArray()
+    for item in charDataArray.data {
+      if item.charImage != UIImage(named: "placeholder.png") {
+        charsWithFaces.data.append(item)
+      }
+    }
+    
+    vc.charDataArray = charsWithFaces
     navigationController?.pushViewController(vc, animated: true)
   }
 
@@ -75,15 +83,14 @@ class MasterViewController: UITableViewController {
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
-        if let indexPath = tableView.indexPathForSelectedRow {
-          let charData = charDataArray.data[indexPath.row]
-            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-            controller.detailItem = charData
-            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
-            
-            detailViewController = controller
-        }
+      if let indexPath = tableView.indexPathForSelectedRow {
+        let charData = charDataArray.data[indexPath.row]
+        let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+        controller.detailItem = charData
+        controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        controller.navigationItem.leftItemsSupplementBackButton = true
+        detailViewController = controller
+      }
     }
   }
 
@@ -110,7 +117,7 @@ class MasterViewController: UITableViewController {
     // Return false if you do not want the specified item to be editable.
     return true
   }
-
+/*
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
         objects.remove(at: indexPath.row)
@@ -119,7 +126,7 @@ class MasterViewController: UITableViewController {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
   }
-
+*/
 
 }
 

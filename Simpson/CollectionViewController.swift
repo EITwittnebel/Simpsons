@@ -33,12 +33,16 @@ class CollectionViewController: UICollectionViewController {
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath)
+    for item in cell.subviews {
+      item.removeFromSuperview()
+    }
     
-    let myImage = charDataArray?.data[indexPath.row].charImage ?? UIImage(named:"test.jpg")
+    var myImage = charDataArray?.data[indexPath.row].charImage ?? UIImage(named:"placeholder.png")
+    if myImage!.size.width == 1.0 {
+      myImage = UIImage(named: "placeholder.png")
+    }
     let myImageView = UIImageView(image: myImage)
-    
-    //let myImageView = UIImageView(image: myImage)
-    
+        
     cell.addSubview(myImageView)
     cell.backgroundColor = .clear
     

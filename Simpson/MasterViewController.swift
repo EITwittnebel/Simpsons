@@ -23,7 +23,7 @@ class MasterViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let NUMCHARS: Int = 80
+    let NUMCHARS: Int = 56
     let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")
     
     

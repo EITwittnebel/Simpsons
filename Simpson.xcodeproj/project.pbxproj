@@ -18,7 +18,6 @@
 		3A799FE9242FD06A0021EBC0 /* CharData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A799FE7242FCD830021EBC0 /* CharData.swift */; };
 		3A799FEB242FD5B50021EBC0 /* CharDataArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A799FEA242FD5B50021EBC0 /* CharDataArray.swift */; };
 		3A86D9E9242FFE6500481F59 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86D9E8242FFE6500481F59 /* CollectionViewController.swift */; };
-		3AD3B92824344A2B009E8590 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3B92724344A2B009E8590 /* placeholder.png */; };
 		4B5D99CE31B41C9622FB6AE4 /* Pods_Simpson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9DBD0311A2270188311270 /* Pods_Simpson.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		3A799FE7242FCD830021EBC0 /* CharData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharData.swift; sourceTree = "<group>"; };
 		3A799FEA242FD5B50021EBC0 /* CharDataArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharDataArray.swift; sourceTree = "<group>"; };
 		3A86D9E8242FFE6500481F59 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		3AD3B92724344A2B009E8590 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = ../../../Downloads/placeholder.png; sourceTree = "<group>"; };
 		41299EB87E0659CFBF1438FF /* Pods-Simpson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simpson.release.xcconfig"; path = "Target Support Files/Pods-Simpson/Pods-Simpson.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,7 +83,6 @@
 				3A86D9E8242FFE6500481F59 /* CollectionViewController.swift */,
 				3A460611242CD652007C03E7 /* Main.storyboard */,
 				3A460614242CD656007C03E7 /* Assets.xcassets */,
-				3AD3B92724344A2B009E8590 /* placeholder.png */,
 				3A2EF1A8243009E10072CD48 /* test.jpg */,
 				3A460616242CD656007C03E7 /* LaunchScreen.storyboard */,
 				3A460619242CD656007C03E7 /* Info.plist */,
@@ -180,7 +177,6 @@
 				3A460618242CD656007C03E7 /* LaunchScreen.storyboard in Resources */,
 				3A460615242CD656007C03E7 /* Assets.xcassets in Resources */,
 				3A460613242CD652007C03E7 /* Main.storyboard in Resources */,
-				3AD3B92824344A2B009E8590 /* placeholder.png in Resources */,
 				3A2EF1A9243009E10072CD48 /* test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

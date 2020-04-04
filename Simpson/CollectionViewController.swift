@@ -46,6 +46,7 @@ class CollectionViewController: UICollectionViewController {
     cell.addSubview(myImageView)
     cell.backgroundColor = .clear
     
+    
     return cell;
   }
   

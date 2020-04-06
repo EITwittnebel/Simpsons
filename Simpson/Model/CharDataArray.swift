@@ -73,7 +73,6 @@ class CharDataArray {
     }
   }
   
-  //Right now we only get the first 20 chars, hopefully that is enough
   func parseData(_ apiCallResults: JSON, numChars: Int) {
     let characters = apiCallResults["RelatedTopics"]
     for index in 0..<numChars {
